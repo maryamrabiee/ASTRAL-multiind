@@ -14,7 +14,7 @@ ggplot(data=d, aes(method, missRate,color="red")) +
         axis.text.y = element_text(size=12,angle = 0),
         legend.position="none")+
   ylab('RF distance')
-ggsave('../figures/Accuracy-trueSpecies.pdf')
+ggsave('../figures/Accuracy-trueSpecies-gradient.pdf')
 
 
 
