@@ -30,18 +30,18 @@ ggplot(data=br[br$V3>0,],aes(x=log10(true),y=log10(V3),color=Number_of_Genes))+
 ggsave('../figures/BL-alpha0.5.pdf',width=8,height=6.2)
 
 br$labelG <- "H"
-br[br$Number_of_Genes>666,]$labelG <- "High NumGenes"
-br[br$Number_of_Genes<=666 & br$Number_of_Genes>333,]$labelG <-"Med NumGenes"
-br[br$Number_of_Genes<=333,]$labelG <- "Low NumGenes"
-br$labelG <- factor(br$labelG, levels = c("High NumGenes", "Med NumGenes", "Low NumGenes"))
+br[br$Number_of_Genes>770,]$labelG <- "High NumGenes"
+#br[br$Number_of_Genes<=750 & br$Number_of_Genes>500,]$labelG <-"Med NumGenes"
+br[br$Number_of_Genes<=770,]$labelG <- "Low NumGenes"
+br$labelG <- factor(br$labelG, levels = c("Low NumGenes", "Med NumGenes","High NumGenes" ))
 
-ggplot(data=br[br$V3>0,],aes(x=log10(true),y=log10(V3),color=Number_of_Genes))+facet_wrap(~labelG)+
-  geom_point(alpha=0.5,size=1.5)+theme_bw()+
+ggplot(data=br[br$V3>0,],aes(x=log10(true),y=log10(V3)))+facet_wrap(~labelG)+
+  geom_point(alpha=0.1,size=1.5)+theme_bw()+
   theme(legend.position="bottom")+
   xlab("true branch length (log scale)")+
   geom_abline(linetype=2)+ ylab("Estimated branch length (log scale)")+
-  coord_cartesian(ylim=c(-5.3,2.3),xlim=c(-5.3,2.3))+geom_smooth()+scale_color_continuous(high="white")
-ggsave('../figures/BL-diffLevelsNumGenes.pdf',width=8,height=6.2)
+  coord_cartesian(ylim=c(-5.3,2.3),xlim=c(-5.3,2.3))+geom_smooth()
+ggsave('../figures/BL-diffLevelsNumGenes.pdf',height=9.5, width=5)
 
 
 bla=recast(melt(data=br[br$V3!=0,c(1,15,16,17)],
