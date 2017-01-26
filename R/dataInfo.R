@@ -1,7 +1,7 @@
 require(ggplot2)
 require(reshape2)
 
-d<-read.csv('gtError-simphy-multiind.csv',sep=" ",header=F)
+d<-read.csv('../data/gtError-simphy-multiind.csv',sep=" ",header=F)
 
 h<-d[!(d$V3 %in% c("-")),]
 

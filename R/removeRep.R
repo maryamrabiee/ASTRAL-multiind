@@ -9,7 +9,7 @@ d$V2 <- as.numeric(as.character(d$V2))
 h <- dcast(d, V1~.,value.var="V2",fun.aggregate=median)
 
 names(h) <- c("V1","medianSeqLen")
-q<-read.csv('../data/parameter.log.info',header=T,sep=" ")
+q<-read.csv('../data/parameter.log.info1',header=T,sep=" ")
 print(h[h$medianSeqLen<300,1])
 print(h[h$medianSeqLen>2000,1])
 stat<-merge(x=h,y=q,by.x="V1",by.y="Replicate")
@@ -50,4 +50,4 @@ bla=recast(melt(data=br[br$V3!=0,c(1,15,16,17)],
            fun.aggregate=function(x)mean(x[!is.infinite(x)]))
 bla[,2:3] = sqrt(bla[,2:3])
 l=latex(format(bla,digits=3),file="../figures/bl.tex",rowname = NULL)
-
+d<-read.csv('seqLength.csv',sep=" ",header=F)
