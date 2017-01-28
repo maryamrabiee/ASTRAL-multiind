@@ -17,7 +17,7 @@ names(a)[6] = "stError"
 names(a)[1] = "Replicate"
 names(a)[2] = "Method"
 
-ggplot(aes(x=Number_of_Genes,y=stError, color=log(3/2*(trueGT-1/3))), data=a[a$Method == "true",])+
+ggplot(aes(x=Number_of_Genes,y=stError, color=log(3/2*(TrueQscore-1/3))), data=a[a$Method == "true",])+
   geom_point()+theme_bw()+geom_smooth()+theme(legend.position=c(.6,.86),legend.direction = 1)+
   scale_color_continuous(name="Quartet score",breaks=c(-1,-2,-3),labels=format(2/3*exp(-1:-3)+1/3,digits = 2))+
   xlab("# of genes")+ylab("Species tree error (RF distance)")
