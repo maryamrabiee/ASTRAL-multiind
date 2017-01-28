@@ -19,5 +19,5 @@ names(a)[2] = "Method"
 
 ggplot(aes(x=Number_of_Genes,y=stError, color=log(3/2*(trueGT-1/3))), data=a[a$Method == "true",])+geom_point()+theme_bw()+geom_smooth()+theme(legend.position=c(.6,.88),legend.direction = 1)+scale_color_continuous(name="",breaks=c(-1,-2,-3),labels=format(2/3*exp(-1:-3)+1/3,digits = 2))+xlab("# of genes")+ylab("Species tree error (RF distance)")
 
-
+ggsave("st-truegt.pdf",width = 4,height = 3.7)
 
