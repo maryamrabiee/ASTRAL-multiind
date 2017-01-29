@@ -30,10 +30,10 @@ ggplot(data=br[br$V3>0,],aes(x=log10(true),y=log10(V3),color=Number_of_Genes))+
 ggsave('../figures/BL-alpha0.5.pdf',width=8,height=6.2)
 
 br$labelG <- "H"
-br[br$Number_of_Genes>770,]$labelG <- "#Genes >770 (3rd quantile)"
+br[br$Number_of_Genes>800,]$labelG <- "#Genes >800"
 #br[br$Number_of_Genes<=750 & br$Number_of_Genes>500,]$labelG <-"Med NumGenes"
-br[br$Number_of_Genes<=770,]$labelG <- "#Genes <=770 (3rd quantile)"
-br$labelG <- factor(br$labelG, levels = c("#Genes <=770 (3rd quantile)", "#Genes >770 (3rd quantile)" ))
+br[br$Number_of_Genes<=800,]$labelG <- "#Genes <=800"
+br$labelG <- factor(br$labelG, levels = c("#Genes <=800", "#Genes >800" ))
 
 ggplot(data=br[br$V3>0,],aes(x=log10(true),y=log10(V3)))+facet_wrap(~labelG)+
   geom_point(alpha=0.1,size=1.5)+theme_bw()+
