@@ -1,3 +1,6 @@
+require(ggplot2)
+require(reshape2)
+
 d=read.csv("allresults.stat",sep=" ",head=F)
 
 h=read.csv('gtError-simphy-multiind.csv',sep=" ",header=F)
