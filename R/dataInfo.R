@@ -31,7 +31,7 @@ ggplot(data=htotal,aes(x=rf,group=V1,fill=V1))+geom_density(alpha=0.5,adjust=1.5
   theme_bw()+xlab('Gt Error (NRF ration)')+ylab('Density')+
   theme(legend.position = c(0.8,0.8),axis.text=element_text(size=12,color="black"),
         axis.title=element_text(size=12,color="black"))+
-  scale_fill_brewer(name="",palette="Dark2",labels=c("1M","2M","500K","S330"))
+  scale_fill_brewer(name="",palette="YlGnBu",labels=c("1M","2M","500K","S330"))
 ggsave('figures/gtError.pdf')
 
 
@@ -50,7 +50,7 @@ ggplot(data=finalsc,aes(x=TrueQscore,group=V1,fill=V1))+geom_density(alpha=0.5,a
   theme_bw()+xlab('Normalized ASTRAL quartet score')+ylab('Density')+
   theme(legend.position = c(0.8,0.8),axis.text=element_text(size=12,color="black"),
         axis.title=element_text(size=12,color="black"))+
-  scale_fill_brewer(name="",palette="Dark2",labels=c("1M","2M","500K","S330"))
+  scale_fill_brewer(name="",palette="YlGnBu",labels=c("1M","2M","500K","S330"))
 ggsave('figures/quartetScore.pdf')
 
 #d<-read.csv('data/result2.csv',sep=" ",header=F)
