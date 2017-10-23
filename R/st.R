@@ -1,9 +1,12 @@
 require(ggplot2)
 require(reshape2)
 
-d=read.csv("accuracy.stat.truegenes",sep=" ",head=F)
+d=read.csv("data/accuracy.stat.truegenes",sep=" ",head=F)
 
-h=read.csv('gtError-simphy-multiind.csv',sep=" ",header=F)
+h=read.csv('data/gtError-simphy-multiind.csv',sep=" ",header=F)
+h<-h[,c(1,2,3,4,5,6,7)]
+h<-h[!(h$V3 %in% c("-")),]
+
 h$V2<-as.numeric(as.character(factor(h$V2)))
 h$V3<-as.numeric(as.character(factor(h$V3)))
 h$V4<-as.numeric(as.character(factor(h$V4)))
@@ -15,7 +18,7 @@ h$rf<-(h$V3+h$V6)/(h$V2+h$V5)
 agt=dcast(V1~., data=h[,c(1,9)],fun.aggregate = function(x) mean (x,na.rm = T))
 names(agt)[2] = "RF"
 
-a = merge(merge(d,agt,by.x="V1",by.y="V1"),read.csv('parameter.log.info1.final',header = T,sep= ' '),by.x="V1", by.y="Replicate")
+a = merge(merge(d,agt,by.x="V1",by.y="V1"),read.csv('data/parameter.log.info1.final',header = T,sep= ' '),by.x="V1", by.y="Replicate")
 names(a)[5] = "stError"
 names(a)[1] = "Replicate"
 
