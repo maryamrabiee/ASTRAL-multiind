@@ -1,6 +1,10 @@
 require(ggplot2)
 require(reshape2)
 setwd('/Users/erfan/Main/Library/ASTRAL-multiind')
+rd1 = "#225ea8"
+rd2 = '#41b6c4'
+rd3 = '#a1dab4'
+bl1 = '#ffffcc'
 d<-read.csv('data/gtError-simphy-multiind.csv',sep=" ",header=F)
 d<-d[,c(1:7)]
 h<-d[!(d$V3 %in% c("-")),]
@@ -27,13 +31,13 @@ d2$rf<-(d2$V4+d2$V7)/(d2$V3+d2$V6)
 
 htotal<-rbind(h,d2)
 htotal$V1<-as.factor(htotal$V1)
-levels(htotal$V1)<-list("1M"="model.200-5.1000000.0.000001","2M"="model.200-5.2000000.0.000001","500K"="model.200-5.500000.0.000001","S330"="S330")
-htotal$V1<-factor(htotal$V1,levels=c("S330","500K","1M","2M"))
-ggplot(data=htotal,aes(x=rf,group=V1,fill=V1))+geom_density(alpha=0.5,adjust=1.5)+
+levels(htotal$V1)<-list("D2-1M"="model.200-5.1000000.0.000001","D2-2M"="model.200-5.2000000.0.000001","D2-0.5M"="model.200-5.500000.0.000001","D1"="S330")
+htotal$V1<-factor(htotal$V1,levels=c("D2-0.5M","D2-1M","D2-2M","D1"))
+ggplot(data=htotal,aes(x=rf,group=V1,fill=V1))+geom_density(alpha=0.8,adjust=1.5)+
   theme_bw()+xlab('Gt Error (NRF ration)')+ylab('Density')+
   theme(legend.position = c(0.8,0.8),axis.text=element_text(size=12,color="black"),
         axis.title=element_text(size=12,color="black"))+
-  scale_fill_brewer(name="",palette="YlGnBu")
+  scale_fill_manual(name="",values=c(rd1,rd2,rd3,bl1))
 ggsave('figures/gtError.pdf')
 
 
@@ -45,15 +49,14 @@ d2<-d2[1:nrow(d2),c(1,2)]
 d2$V1<-"S330"
 d2<-d2[,c(3,1,2)]
 names(d)<-c("V1","Rep","TrueQscore")
-
 finalsc<-rbind(d,d2)
-levels(finalsc$V1)<-list("1M"="model.200-5.1000000.0.000001","2M"="model.200-5.2000000.0.000001","500K"="model.200-5.500000.0.000001","S330"="S330")
-finalsc$V1<-factor(finalsc$V1,levels=c("S330","500K","1M","2M"))
-ggplot(data=finalsc,aes(x=TrueQscore,group=V1,fill=V1))+geom_density(alpha=0.5,adjust=1.5)+
+levels(finalsc$V1)<-list("D2-1M"="model.200-5.1000000.0.000001","D2-2M"="model.200-5.2000000.0.000001","D2-0.5M"="model.200-5.500000.0.000001","D1"="S330")
+finalsc$V1<-factor(finalsc$V1,levels=c("D2-0.5M","D2-1M","D2-2M","D1"))
+ggplot(data=finalsc,aes(x=TrueQscore,group=V1,fill=V1))+geom_density(alpha=0.8,adjust=1.5)+
   theme_bw()+xlab('Normalized ASTRAL quartet score')+ylab('Density')+
   theme(legend.position = c(0.8,0.8),axis.text=element_text(size=12,color="black"),
         axis.title=element_text(size=12,color="black"))+
-  scale_fill_brewer(name="",palette="YlGnBu")
+  scale_fill_manual(name="",values=c(rd1,rd2,rd3,bl1))
 ggsave('figures/quartetScore.pdf')
 
 #d<-read.csv('data/result2.csv',sep=" ",header=F)
