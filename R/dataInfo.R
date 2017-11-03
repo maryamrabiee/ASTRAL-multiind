@@ -42,7 +42,7 @@ ggsave('figures/gtError.pdf')
 
 
 d<-read.csv('data/newdataset/score-speciesTrees.score',sep=" ",header=F)
-d<-d[,c(1,2,4)]
+d<-d[,c(1,2,3)]
 
 d2<-read.csv('data/quartetScores.csv',sep=" ",header=T)
 d2<-d2[1:nrow(d2),c(1,2)]
@@ -56,9 +56,28 @@ ggplot(data=finalsc,aes(x=TrueQscore,group=V1,fill=V1))+geom_density(alpha=0.8,a
   theme_bw()+xlab('Normalized ASTRAL quartet score')+ylab('Density')+
   theme(legend.position = c(0.8,0.8),axis.text=element_text(size=12,color="black"),
         axis.title=element_text(size=12,color="black"))+
-  scale_fill_manual(name="",values=c(rd1,rd2,rd3,bl1))
+  scale_fill_manual(name="",values=c(rd1,rd2,rd3,bl1))+scale_x_continuous(breaks=c(0.33,0.4, 0.6,0.8,1))
 ggsave('figures/quartetScore.pdf')
 
 #d<-read.csv('data/result2.csv',sep=" ",header=F)
 #qplot(data=d,x=reorder(as.factor(V1),V5),y=V5,color=as.factor(V2),geom='jitter')+theme_bw()+xlab('replicate')+ylab('FN error')+theme(axis.ticks = element_blank(), axis.text.x = element_text(angle = 90, hjust = 0, colour = "grey50"))+scale_color_brewer(name="Number of rounds",palette="Dark2")
 #ggsave('EstimatedGeneTrees.pdf')
+p<-read.csv('data/parameter.log.info1',sep="\t",header=T)
+
+h<-read.csv('data/newdataset/score-speciesTrees.score',sep=" ",header=F)
+
+dcast(data=h,V1~.,fun.aggregate = mean)
+
+y<-read.csv('data/newdataset/seqLength.txt',header=F,sep=" ")
+y$V3<-as.numeric(as.character(y$V3))
+y$V2<-as.factor(y$V2)
+g<-dcast(data=y,V1+V2~.,fun.aggregate=median,value.var="V3")
+
+
+q<-read.csv('data/newdataset/gterror.csv',sep=" ",header=F)
+q$V3<-as.numeric(as.character(q$V3))
+q$V4<-as.numeric(as.character(q$V4))
+q$V6<-as.numeric(as.character(q$V6))
+q$V7<-as.numeric(as.character(q$V7))
+q$rf<-(q$V4+q$V7)/(q$V3+q$V6)
+dcast(data=q,V1~.,fun.aggregate = mean,value.var = "rf")
