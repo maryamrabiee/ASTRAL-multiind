@@ -81,3 +81,11 @@ q$V6<-as.numeric(as.character(q$V6))
 q$V7<-as.numeric(as.character(q$V7))
 q$rf<-(q$V4+q$V7)/(q$V3+q$V6)
 dcast(data=q,V1~.,fun.aggregate = mean,value.var = "rf")
+
+
+d<-read.csv('data/trueSpIntBrLen.txt',sep=" ",header=F)
+nrow(d[d$V2<100000,])/nrow(d)
+pd<-merge(x=p,y=d,by.x="Replicate",by.y="V1")
+pd$BrCoelesce<-pd$V2/pd$Haploid_efective_population_size
+nrow(pd[pd$BrCoelesce<=0.1,])/nrow(pd)
+

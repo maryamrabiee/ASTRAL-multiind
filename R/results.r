@@ -10,7 +10,7 @@ ds[ds$variable %in% c("internal","semiterminal"),]$version <- "astral-II"
 
 p<-read.csv('data/parameter.log.info1',sep=" ",header=T)
 m<-merge(x=ds,y=p,by.x="Replicate",by.y="Replicate")
-a=20
+a=10
 m$generation<-cut(ecdf(m$Generations)(m$Generations),breaks = 0:a*1/a)
 ggplot(data=m,
        aes(x=generation,y=value,color=variable,group=variable))+stat_summary(fun.y="mean",geom="line")+
