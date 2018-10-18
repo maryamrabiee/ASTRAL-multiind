@@ -67,6 +67,7 @@ p<-read.csv('data/parameter.log.info1',sep="\t",header=T)
 h<-read.csv('data/newdataset/score-speciesTrees.score',sep=" ",header=F)
 
 dcast(data=h,V1~.,fun.aggregate = mean)
+dcast(data=h,V1~.,fun.aggregate = function(x){quantile(x,c(0.05))})
 
 y<-read.csv('data/newdataset/seqLength.txt',header=F,sep=" ")
 y$V3<-as.numeric(as.character(y$V3))
@@ -81,6 +82,8 @@ q$V6<-as.numeric(as.character(q$V6))
 q$V7<-as.numeric(as.character(q$V7))
 q$rf<-(q$V4+q$V7)/(q$V3+q$V6)
 dcast(data=q,V1~.,fun.aggregate = mean,value.var = "rf")
+dcast(data=q,V1~.,fun.aggregate = function(x){quantile(x,c(0.05))},value.var = "rf")
+dcast(data=q,V1~.,fun.aggregate = function(x){quantile(x,c(0.95))},value.var = "rf")
 
 
 d<-read.csv('data/trueSpIntBrLen.txt',sep=" ",header=F)

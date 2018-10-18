@@ -25,13 +25,11 @@ plot.semi<-ggplot(data=f,aes(x=(br.y),y=(br.x+10^(-6))))+geom_point(alpha=0.05,c
   coord_cartesian(xlim = c(10^-6,10^1.7),ylim=c(10^-6,10^1.7))+geom_hline(yintercept = 10^-6,linetype=2)+
   xlab("true branch lengths (cu)")+ylab("estimated branch lengths (cu)")
 #ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/branchlengths-semiinternal.pdf',width=7.08 ,height=3.71)
-
-plot.line<-ggplot(data=d[d$V2=="estimatedBr" ,],aes(x=(V5),group=V3,color=V3))+stat_ecdf(size=1.5)+theme_bw()+
+ggplot(data=d[d$V2=="estimatedBr" ,],aes(x=(V5),group=V3,color=V3))+stat_ecdf(size=1.5)+theme_bw()+
   scale_color_manual(name="",labels=c("estimated gt","true gt"),values=c("#1f78b4","#33a02c"))+
-  xlab('LocalPP values for terminal branches')+ylab('ecdf')+
-  theme(legend.position = c(0.2,0.7))
-  
-#ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/localpp-semiinternal-ecdf.pdf',width=7.08,height=7.48)
+  xlab('LocalPP values for terminal branches')+ylab('Empirical distribution function')+
+  theme(legend.position = c(0.3,0.7),axis.text=element_text(size=11),legend.text = element_text(size=11))
+ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/localpp-semiinternal-ecdf.pdf',width=4.8,height=4.8)
 
 d2<-read.csv('/Users/erfan/Main/Library/ASTRAL-multiind/data/newdataset/branchlengths_iterminal.txt',header=F,sep=" ")
 dp<-merge(x=d2,y=p,by.x="V1",by.y="Replicate")
@@ -45,8 +43,9 @@ plot.internal<-ggplot(data=dp,aes(x=(V3),y=(V4)+10^-8))+geom_point(alpha=0.05,co
   coord_cartesian(xlim = c(10^-8,10^1.7),ylim=c(10^-8,10^1.7))+geom_hline(yintercept = 10^-8,linetype=2)+
   xlab("true branch lengths (cu)")+ylab("estimated branch lengths (cu)")
 #ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/branchlengths-internal.pdf',width=7.08 ,height=3.71)
-plot_grid(plot_grid(plot.semi,plot.internal,nrow=2,labels=c("a)","b)")),plot.line,labels=c("","c)"))
-ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/branchlengths-total.pdf',width=9.19 , height=5.27)
+plot_grid(plot.semi,plot.internal,nrow = 2)
+ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/branchlengths-total.png',width=4,height=4.2)
+#ggsave('/Users/erfan/Main/Library/ASTRAL-multiind/figures/branchlengths-total.jpg',width=9.19 , height=5.27)
 
 
 
